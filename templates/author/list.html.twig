@@ -1,0 +1,23 @@
+<h1>Authors List</h1>
+<h1>Authors number is {{ authors|length }}</h1>
+
+{% set total_books = 0 %}
+{% for author in authors %}
+    {% set total_books = total_books + author.nb_books %}
+{% endfor %}
+
+<h1>Total Books Number: {{ total_books }}</h1>
+
+{% if authors is empty %}
+    <h1>No authors available</h1>
+{% else %}
+    <div>
+        {% for author in authors %}
+            <a href="{{ path('authorDetails', {'id': author.id}) }}">Détails</a> ||
+                <img src="{{ author.picture }}" alt="{{ author.username }}">
+                <div><strong>{{ author.username | upper }}</strong></div>
+                <div>{{ author.email }}</div>
+                <div>{{ author.nb_books }} books</div>
+            </div>
+        {% endfor %}
+{% endif %}
